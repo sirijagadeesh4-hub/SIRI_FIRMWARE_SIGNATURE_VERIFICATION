@@ -7,9 +7,10 @@ on:
 jobs:
   gds:
     runs-on: ubuntu-24.04
+
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v6
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -21,6 +22,7 @@ jobs:
   precheck:
     needs: gds
     runs-on: ubuntu-24.04
+
     steps:
       - name: Run Tiny Tapeout Precheck
         uses: TinyTapeout/tt-gds-action/precheck@ttgf26a
@@ -28,22 +30,26 @@ jobs:
   gl_test:
     needs: gds
     runs-on: ubuntu-24.04
+
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v6
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: GL test
+      - name: GL Test
         uses: TinyTapeout/tt-gds-action/gl_test@ttgf26a
 
   viewer:
     needs: gds
     runs-on: ubuntu-24.04
+
     environment:
-    name: github-pages
+      name: github-pages
+
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write
+      id-token: write
+
     steps:
       - uses: TinyTapeout/tt-gds-action/viewer@ttgf26a
